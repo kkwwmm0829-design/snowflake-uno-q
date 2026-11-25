@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>나만의 눈송이 공방</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#EEF8FF;--ice:#7FD3FF;--ice2:#BFE9FF;--soft:#A9CBEA;--line:rgba(191,233,255,.30);
+  --red:#E8545E;--gold:#F6D277;--green:#57B98B;--A:#E05A5A;--B:#E8C547;--C:#5CB57A;--D:#4F86D9}
+*{box-sizing:border-box}
+body{margin:0;font-family:Jua,"Malgun Gothic",sans-serif;color:var(--ink);min-height:100vh;overflow:hidden;
+  background:radial-gradient(ellipse at 50% -15%,#2C5C99 0%,#163A6B 42%,#0B1D3A 78%,#081429 100%);
+  display:flex;align-items:center;justify-content:center;padding:8px}
+#snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.conn{position:fixed;top:10px;left:16px;font-size:.95rem;color:#8FB5DA;z-index:3}
+.card{position:relative;z-index:1;width:100%;max-width:1220px;padding:12px 28px 12px;border-radius:30px;
+  background:rgba(255,255,255,.07);border:2px solid var(--line);
+  box-shadow:0 0 70px rgba(127,211,255,.18),inset 0 0 50px rgba(255,255,255,.05);backdrop-filter:blur(5px)}
+.card::before{content:"";position:absolute;left:24px;right:24px;top:-9px;height:18px;border-radius:9px;
+  background:repeating-linear-gradient(90deg,#fff 0 22px,#E8F6FF 22px 30px);opacity:.9;
+  box-shadow:0 3px 10px rgba(255,255,255,.35)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:4px}
+.top h1{margin:0;font-size:2rem;font-weight:400;letter-spacing:1px;color:#fff;text-shadow:0 0 18px rgba(127,211,255,.7)}
+.top h1 .flk{color:var(--ice2)}
+.tag{font-size:1.05rem;color:var(--gold);letter-spacing:2px}
+.tag b{color:var(--red);font-weight:400}.tag i{color:var(--green);font-style:normal}
+#tabs{display:flex;gap:8px;margin:6px 0 4px;min-height:34px}
+.tab{font-size:1.1rem;padding:5px 15px;border-radius:999px;color:#8FB5DA;background:rgba(255,255,255,.06);border:1px solid rgba(191,233,255,.15)}
+.tab.past{color:var(--green)}
+.tab.on{color:#0B1D3A;background:var(--ice2);border-color:var(--ice2)}
+.main{display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center}
+.stage{position:relative;width:min(480px,58vh);height:min(480px,58vh);border-radius:50%;
+  background:radial-gradient(circle,rgba(127,211,255,.13) 0%,rgba(127,211,255,.04) 55%,transparent 72%)}
+#cv{width:100%;height:100%;display:block}
+.side{display:flex;flex-direction:column;gap:10px;min-height:min(480px,58vh);justify-content:center}
+#view .eyebrow{font-size:1.25rem;color:var(--gold)}
+#view h2{font-size:2.1rem;font-weight:400;margin:4px 0 10px;line-height:1.3;color:#fff}
+#view p{font-size:1.4rem;line-height:1.55;margin:0 0 8px;color:var(--ink)}
+#view .keys{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:8px 0}
+#view .key{font-size:1.25rem;background:rgba(255,255,255,.07);border:1px solid rgba(191,233,255,.18);border-radius:14px;padding:8px 14px}
+#view .key b{display:inline-block;min-width:34px;font-weight:400;color:var(--ice)}
+#view .stat{display:inline-block;font-size:1.2rem;background:rgba(127,211,255,.14);border-radius:12px;padding:6px 14px;margin:4px 6px 4px 0}
+#view .msg{font-size:1.4rem;color:var(--gold);min-height:1.5em}
+#view .good{color:#8EE3B5}#view .bad{color:#FF9AA0}
+#view .stars{font-size:2.2rem;letter-spacing:6px;color:var(--gold)}
+.pad{display:flex;gap:26px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(191,233,255,.15);border-radius:22px;padding:12px 18px;align-self:flex-start}
+.pad .cap{font-size:.95rem;color:#8FB5DA;text-align:center;margin-bottom:4px}
+.pj{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:5px}
+.pb{display:grid;grid-template-columns:repeat(2,50px);gap:9px}
+.pk{border-radius:12px;background:rgba(255,255,255,.08);color:#6F8FB3;display:flex;align-items:center;justify-content:center;font-size:1.4rem;opacity:.35;transition:transform .08s,opacity .15s}
+.pb .pk{border-radius:50%;height:50px;color:#fff}
+.pk.act{opacity:1;color:#fff;background:rgba(255,255,255,.18)}
+.pb .pk.act{box-shadow:0 0 12px rgba(255,255,255,.35)}
+.pk.hit{transform:scale(1.2)}
+.stick{width:30px;height:30px;border-radius:50%;background:var(--ice2);margin:auto;box-shadow:0 0 10px var(--ice)}
+#help{margin-top:8px;font-size:1.3rem;text-align:center;color:#0B1D3A;background:linear-gradient(90deg,var(--ice2),#fff,var(--ice2));border-radius:16px;padding:7px 20px;min-height:1.5em}
+</style></head><body>
+<div class="conn" id="conn">연결 중…</div>
+<div class="card" id="app">
+  <div class="top">
+    <h1><span class="flk">❄</span> 나만의 눈송이 공방</h1>
+    <span class="tag"><b>MERRY</b> <i>CHRISTMAS</i> · 대칭과 프랙탈</span>
+  </div>
+  <div id="tabs"></div>
+  <div class="main">
+    <div class="stage"><canvas id="cv" width="960" height="960"></canvas></div>
+    <div class="side">
+      <div id="view"></div>
+      <div class="pad">
+        <div><div class="cap">조이스틱</div>
+          <div class="pj">
+            <div></div><div class="pk" id="pk-UP">↑</div><div></div>
+            <div class="pk" id="pk-LEFT">←</div><div class="stick"></div><div class="pk" id="pk-RIGHT">→</div>
+            <div></div><div class="pk" id="pk-DOWN">↓</div><div></div>
+          </div></div>
+        <div><div class="cap">버튼</div>
+          <div class="pb">
+            <div class="pk" id="pk-A" style="background:var(--A)">A</div>
+            <div class="pk" id="pk-B" style="background:var(--B)">B</div>
+            <div class="pk" id="pk-C" style="background:var(--C)">C</div>
+            <div class="pk" id="pk-D" style="background:var(--D)">D</div>
+          </div></div>
+        <div class="cap" style="text-align:left;line-height:1.6;font-size:1.05rem">A 다음<br>B 프랙탈 마법<br>C 처음부터<br>D 완성 · 인쇄</div>
+      </div>
+    </div>
+  </div>
+  <div id="help"></div>
+</div>
+
+<script src="libs/socket.io.min.js"></script>
+<script src="libs/arduino.js"></script>
+<script src="app.js"></script>
+</body></html>

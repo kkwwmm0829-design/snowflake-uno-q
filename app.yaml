@@ -1,0 +1,6 @@
+name: Snowflake
+icon: ❄️
+description: 나만의 눈송이 공방 — 조이스틱으로 눈송이 가지를 만들면 6방향 대칭으로 복사되고, 프랙탈 마법으로 자라난 눈송이를 영수증에 그림으로 인쇄합니다.
+
+bricks:
+  - arduino:web_ui
